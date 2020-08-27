@@ -10,20 +10,11 @@ import { Component, Prop, Host, h } from '@stencil/core';
   shadow: true,
 })
 export class WtfSHero {
-  /**
-   * The title
-   */
-  @Prop() header: string;
 
   /**
    * The description
    */
   @Prop() description: string;
-
-  /**
-   * Action CTA
-   */
-  @Prop() action: string;
 
   render() {
     return (
@@ -32,9 +23,8 @@ export class WtfSHero {
           <slot name="image"></slot>
         </div>
         <div>
-          <h2>{this.header}</h2>
+          <h2><span>w</span>eb componen<span>t</span>s(<span>f</span>)</h2>
           <p><slot name="description">Description Placeholder</slot></p>
-          <a href="">{this.action}</a>
         </div>
       </Host>
     );

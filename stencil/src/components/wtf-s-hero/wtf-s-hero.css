@@ -1,6 +1,29 @@
 :host {
   display: block;
+  text-align: center;
+  margin: 5rem 0;
 }
-:host h2 {
-  color: blue;
+
+h2 {
+  font-family: 'Poppins', sans-serif;
+  color: black;
+  text-transform: uppercase;
+  font-size: 5rem;
+  margin: 0;
+  padding:0;
+  line-height: 5rem;
+}
+
+h2.highlighted {
+  position: relative;
+  left: 1rem;
+}
+
+span, .highlighted {
+  color: red;
+}
+
+p {
+  font-family: 'PT Serif', serif;
+  font-size: 1.3rem;
 }

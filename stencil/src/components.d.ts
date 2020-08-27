@@ -22,17 +22,9 @@ export namespace Components {
     }
     interface WtfSHero {
         /**
-          * Action CTA
-         */
-        "action": string;
-        /**
           * The description
          */
         "description": string;
-        /**
-          * The title
-         */
-        "header": string;
     }
 }
 declare global {
@@ -70,17 +62,9 @@ declare namespace LocalJSX {
     }
     interface WtfSHero {
         /**
-          * Action CTA
-         */
-        "action"?: string;
-        /**
           * The description
          */
         "description"?: string;
-        /**
-          * The title
-         */
-        "header"?: string;
     }
     interface IntrinsicElements {
         "my-component": MyComponent;
