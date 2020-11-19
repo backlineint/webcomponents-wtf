@@ -1,0 +1,14 @@
+{
+  "name": "buildless",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "watch": "web-dev-server --node-resolve --watch --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "devDependencies": {
+    "@web/dev-server": "0.0.21"
+  }
+}
