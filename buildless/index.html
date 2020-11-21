@@ -1,10 +1,20 @@
 <html>
   <head>
-    <title>Buildless</title>
+    <title>Buildless Results Tracker</title>
   </head>
   <body>
-    <h1>Buildless Example</h1>
-    <results-tracker winner="Al Gore"></results-tracker>
+    <results-tracker
+      headline="Race between old men too close to call"
+      race="President"
+      total="538"
+      threshold="270"
+      primary="electoral"
+      secondary="popular"
+      candidates='[
+          {"name": "Joseph R. Biden Jr.", "primary": 253, "secondary": 73879622},
+          {"name": "Donald J. Trump", "primary": 214, "secondary": 69772905}
+        ]'
+    />
 
     <script type="module" src="index.js"></script>
   </body>
