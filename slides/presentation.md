@@ -32,6 +32,8 @@ Component based approaches have taken over the web
 
 How do they differ from 'components'
 
+Like React, right? Well not really.
+
 ---
 
 # I'm not an expert
@@ -60,6 +62,7 @@ Others
 * NPM Install the thing
 * A custom element
 * The Shadow DOM
+  * Drop it into a MAGA style website
 
 ---
 
@@ -121,3 +124,7 @@ Examples of boilerplate that framework takes care of
 ---
 
 # My more educated views on web components
+
+On an infinite timescale, web components will win.
+
+But how infinite? And will it be this version of Web Components?

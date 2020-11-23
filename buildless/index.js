@@ -1,7 +1,15 @@
 class ResultsTracker extends HTMLElement {
   // Specify observed attributes so that attributeChangedCallback will work
   static get observedAttributes() {
-    return ['headline'];
+    return [
+      'headline',
+      'race',
+      'threshold',
+      'total',
+      'primary',
+      'secondary',
+      'candidates',
+    ];
   }
 
   constructor() {
@@ -9,60 +17,87 @@ class ResultsTracker extends HTMLElement {
     super();
 
     // Create a shadow root
+    // Would it be possible to not use the shadow root here?
     const shadow = this.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
     // Create wrapping element
-    // Should all elements be associated with .this?
+    // TODO - is there any non-library way to do templating here?
     const wrapper = document.createElement('div');
     wrapper.setAttribute('class', 'results-tracker');
 
     // Headline - we'll use this to demonstrate approaches to global styling
-    this.headline = document.createElement('h2');
-    // We don't need to do this because of attributeChangedCallback
-    // this.headline.textContent = this.getAttribute('headline');
-    wrapper.appendChild(this.headline);
+    this.headlineElement = document.createElement('h2');
+    this.headlineElement.setAttribute('class', 'results-tracker__headline');
+    wrapper.appendChild(this.headlineElement);
 
-    const race = document.createElement('div');
-    race.setAttribute('class', 'results-tracker__race');
-    race.textContent = this.getAttribute('race');
-    wrapper.appendChild(race);
+    this.raceElement = document.createElement('div');
+    this.raceElement.setAttribute('class', 'results-tracker__race');
+    wrapper.appendChild(this.raceElement);
 
-    const trackerThreshold = this.getAttribute('threshold');
-    const threshold = document.createElement('div');
-    threshold.setAttribute('class', 'results-tracker__threshold');
-    threshold.textContent = `${trackerThreshold} to win`;
-    wrapper.appendChild(threshold);
+    this.thresholdElement = document.createElement('div');
+    this.thresholdElement.setAttribute('class', 'results-tracker__threshold');
+    wrapper.appendChild(this.thresholdElement);
 
-    const candidates = JSON.parse(this.getAttribute('candidates'));
-
-    // TODO - Update to use a map
-    const candidate1 = document.createElement('p');
-    candidate1.setAttribute('class', 'results-tracker__candidate1');
-    candidate1.textContent = `${candidates[0].name} ${candidates[0].primary} / ${candidates[0].secondary} votes`;
-    wrapper.appendChild(candidate1);
-
-    const candidate2 = document.createElement('p');
-    candidate2.setAttribute('class', 'results-tracker__candidate2');
-    candidate2.textContent = `${candidates[1].name} ${candidates[1].primary} / ${candidates[1].secondary} votes`;
-    wrapper.appendChild(candidate2);
-
-    const trackerTotal = this.getAttribute('total');
-    const primaryMetric = this.getAttribute('primary');
-    const secondaryMetric = this.getAttribute('secondary');
-
-    console.log({ trackerTotal, primaryMetric, secondaryMetric })
+    this.candidateElements = [];
+    JSON.parse(this.getAttribute('candidates')).map((candidate, index) => {
+      this.candidateElements[index] = document.createElement('p');
+      this.candidateElements[index].setAttribute('class', 'results-tracker__candidate');
+      wrapper.appendChild(this.candidateElements[index]);
+    });
 
     shadow.appendChild(wrapper);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
     if (oldValue !== newValue) {
-      // Case statement?
-      if (name === 'headline') {
-        this.headline.textContent = newValue;
+      switch(name) {
+        case 'headline':
+          this.headlineElement.textContent = newValue;
+          break;
+        case 'race':
+          this.raceElement.textContent = newValue;
+          break;
+        case 'threshold':
+          this.thresholdElement.textContent = `${newValue} to win`;
+          break;
+        case 'total':
+          this.total = newValue;
+          break;
+        case 'primary':
+          this.primary = newValue;
+          break;
+        case 'secondary':
+          this.secondary = newValue;
+          break;
+        case 'candidates':
+          this.processCandidates();
+          break;
       }
     }
   }
+
+  calculateSecondaryTotal() {
+    let secondaryTotal = 0;
+    this.candidates.forEach(candidate => {
+      secondaryTotal += candidate.secondary;
+    });
+    return secondaryTotal;
+  }
+
+  getVotePercentage(candidate) {
+    return Math.round(candidate.secondary/this.secondaryTotal * 100);
+  }
+
+  processCandidates() {
+    this.candidates = JSON.parse(this.getAttribute('candidates'));
+    this.secondaryTotal = this.calculateSecondaryTotal();
+    this.candidates.map((candidate, index) => {
+      this.candidateElements[index].textContent = `${candidate.name}
+      ${candidate.primary} / ${candidate.secondary} votes
+      (${this.getVotePercentage(candidate)}%)`;
+    });
+  }
+
 }
 
 // Define the new element
