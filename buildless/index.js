@@ -17,7 +17,6 @@ class ResultsTracker extends HTMLElement {
     super();
 
     // Create a shadow root
-    // Would it be possible to not use the shadow root here?
     const shadow = this.attachShadow({mode: 'open'}); // sets and returns 'this.shadowRoot'
 
     // Create wrapping element
@@ -34,18 +33,172 @@ class ResultsTracker extends HTMLElement {
     this.raceElement.setAttribute('class', 'results-tracker__race');
     wrapper.appendChild(this.raceElement);
 
+    const labelsElement = document.createElement('div');
+    labelsElement.setAttribute('class', 'results-tracker__counts');
+    this.label1Element = document.createElement('span');
+    this.label2Element = document.createElement('span');
+    this.label1Element.setAttribute('class', 'results-tracker__count-label label1');
+    this.label2Element.setAttribute('class', 'results-tracker__count-label label2');
+    labelsElement.appendChild(this.label1Element);
+    labelsElement.appendChild(this.label2Element);
+    wrapper.appendChild(labelsElement);
+
+    const barsElement = document.createElement('div');
+    barsElement.setAttribute('class', 'results-tracker__bars');
+    const controlLabelElement = document.createElement('div');
+    controlLabelElement.setAttribute('class', 'results-tracker__control-label');
+    // Make this controlled
+    controlLabelElement.textContent = "270";
+    const suffixElement = document.createElement('span');
+    suffixElement.setAttribute('class', 'results-tracker__control-label-suffix');
+    suffixElement.textContent = 'To win';
+    controlLabelElement.appendChild(suffixElement);
+    const bar1Element = document.createElement('div');
+    const bar2Element = document.createElement('div');
+    bar1Element.setAttribute('class', 'results-tracker__bar bar1');
+    bar2Element.setAttribute('class', 'results-tracker__bar bar2');
+    barsElement.appendChild(bar1Element);
+    barsElement.appendChild(controlLabelElement);
+    barsElement.appendChild(bar2Element);
+    wrapper.appendChild(barsElement);
+
+    // TODO - this should eventually be removed.
     this.thresholdElement = document.createElement('div');
     this.thresholdElement.setAttribute('class', 'results-tracker__threshold');
-    wrapper.appendChild(this.thresholdElement);
 
+    const candidatesElement = document.createElement('div');
+    candidatesElement.setAttribute('class', 'results-tracker__candidates');
     this.candidateElements = [];
     JSON.parse(this.getAttribute('candidates')).map((candidate, index) => {
-      this.candidateElements[index] = document.createElement('p');
-      this.candidateElements[index].setAttribute('class', 'results-tracker__candidate');
-      wrapper.appendChild(this.candidateElements[index]);
+      this.candidateElements[index] = {
+        wrapper: document.createElement('div'),
+        name: document.createElement('div'),
+        votes: document.createElement('div'),
+      }
+      this.candidateElements[index].wrapper.setAttribute('class', 'results-tracker__candidate');
+      this.candidateElements[index].name.setAttribute('class', 'results-tracker__name');
+      this.candidateElements[index].votes.setAttribute('class', 'results-tracker__votes');
+      this.candidateElements[index].wrapper.appendChild(this.candidateElements[index].name);
+      this.candidateElements[index].wrapper.appendChild(this.candidateElements[index].votes);
+      candidatesElement.appendChild(this.candidateElements[index].wrapper);
     });
+    wrapper.appendChild(candidatesElement);
 
+    // Create some CSS to apply to the shadow dom
+    const style = document.createElement('style');
+
+    // Todo - allow candidate color to be overriden as prop
+    style.textContent = `
+      :host {
+        font-family: 'Libre Franklin', helvetica, arial, sans-serif;
+      }
+      h2 {
+        margin: .5rem 0;
+        font-family: 'Domine', serif;
+        font-weight: 700;
+        font-size: 36px;
+        text-align: center;
+      }
+      .results-tracker__race {
+        margin-bottom: 2px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .results-tracker__race::after {
+        content: "›";
+        display: inline-block;
+        position: relative;
+        top: -2px;
+        padding-left: 4px;
+        transform: scale(1.5);
+      }
+      .results-tracker__counts {
+        display: flex;
+        justify-content: space-between;
+      }
+      .results-tracker__count-label {
+        font-size: 44px;
+        font-weight: 700;
+      }
+      .results-tracker__count-label:first-of-type {
+        color: #1375b7;
+      }
+      .results-tracker__count-label:last-of-type {
+        color: #c93135;
+      }
+      .results-tracker__bars {
+        display: flex;
+        position: relative;
+        justify-content: space-between;
+        height: 20px;
+        width: 100%;
+        margin-bottom: 6px;
+        background: #ebebeb;
+      }
+      .results-tracker__control-label {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 100px;
+        margin-left: -50px;
+        z-index: 10;
+        text-align: center;
+        color: #777;
+        font-size: .9em;
+        font-size: 11.5px;
+        font-weight: normal;
+      }
+      .results-tracker__control-label-suffix {
+        display: block;
+        font-size: 9.5;
+        text-transform: uppercase;
+      }
+      .results-tracker__control-label::after {
+        content: "";
+        display: block;
+        width: 1px;
+        height: 23px;
+        margin: 2px auto 0 49px;
+        background: #333;
+      }
+      .results-tracker__bar:first-of-type {
+        width: 40%;
+        background-color: #1375b7;
+      }
+      .results-tracker__bar:last-of-type {
+        width: 40%;
+        background-color: #c93135;
+      }
+      .results-tracker__candidates {
+        display: flex;
+        justify-content: space-between;
+      }
+      .results-tracker__candidate:last-of-type {
+        text-align: right;
+      }
+      .results-tracker__name {
+        margin-bottom: 3px;
+        font-size: 15px;
+        font-weight: 600;
+      }
+      .results-tracker__candidate:first-of-type .results-tracker__name {
+        color: #1375b7;
+      }
+      .results-tracker__candidate:last-of-type .results-tracker__name {
+        color: #c93135;
+      }
+      .results-tracker__votes {
+        font-size: 13px;
+        color: #777;
+      }
+    `;
+
+    // Attach the styles to the shadow dom
+    shadow.appendChild(style);
+    // Attach the results tracker to the shadow DOM.
     shadow.appendChild(wrapper);
+    // If we instead wanted to opt out of the shadow DOM, this would be:
+    // this.appendChild(wrapper);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -92,10 +245,11 @@ class ResultsTracker extends HTMLElement {
     this.candidates = JSON.parse(this.getAttribute('candidates'));
     this.secondaryTotal = this.calculateSecondaryTotal();
     this.candidates.map((candidate, index) => {
-      this.candidateElements[index].textContent = `${candidate.name}
-      ${candidate.primary} / ${candidate.secondary} votes
-      (${this.getVotePercentage(candidate)}%)`;
+      this.candidateElements[index].name.textContent = candidate.name;
+      this.candidateElements[index].votes.textContent = `${candidate.secondary} votes (${this.getVotePercentage(candidate)}%)`;
     });
+    this.label1Element.textContent = this.candidates[0].primary;
+    this.label2Element.textContent = this.candidates[1].primary;
   }
 
 }
