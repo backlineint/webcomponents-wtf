@@ -74,6 +74,7 @@ class ResultsTracker extends HTMLElement {
         wrapper: document.createElement('div'),
         name: document.createElement('div'),
         votes: document.createElement('div'),
+        color: candidate.color
       }
       this.candidateElements[index].wrapper.setAttribute('class', 'results-tracker__candidate');
       this.candidateElements[index].name.setAttribute('class', 'results-tracker__name');
@@ -121,10 +122,10 @@ class ResultsTracker extends HTMLElement {
         font-weight: 700;
       }
       .results-tracker__count-label:first-of-type {
-        color: #1375b7;
+        color: ${this.candidateElements[0].color};
       }
       .results-tracker__count-label:last-of-type {
-        color: #c93135;
+        color: ${this.candidateElements[1].color};
       }
       .results-tracker__bars {
         display: flex;
@@ -163,11 +164,11 @@ class ResultsTracker extends HTMLElement {
       }
       .results-tracker__bar:first-of-type {
         width: 40%;
-        background-color: #1375b7;
+        background-color: ${this.candidateElements[0].color};
       }
       .results-tracker__bar:last-of-type {
         width: 40%;
-        background-color: #c93135;
+        background-color: ${this.candidateElements[1].color};
       }
       .results-tracker__candidates {
         display: flex;
@@ -182,10 +183,10 @@ class ResultsTracker extends HTMLElement {
         font-weight: 600;
       }
       .results-tracker__candidate:first-of-type .results-tracker__name {
-        color: #1375b7;
+        color: ${this.candidateElements[0].color};
       }
       .results-tracker__candidate:last-of-type .results-tracker__name {
-        color: #c93135;
+        color: ${this.candidateElements[1].color};
       }
       .results-tracker__votes {
         font-size: 13px;
@@ -247,6 +248,7 @@ class ResultsTracker extends HTMLElement {
     this.candidates.map((candidate, index) => {
       this.candidateElements[index].name.textContent = candidate.name;
       this.candidateElements[index].votes.textContent = `${candidate.secondary} votes (${this.getVotePercentage(candidate)}%)`;
+      this.candidateElements[index].color = candidate.color;
     });
     this.label1Element.textContent = this.candidates[0].primary;
     this.label2Element.textContent = this.candidates[1].primary;
