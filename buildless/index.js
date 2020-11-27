@@ -4,10 +4,7 @@ class ResultsTracker extends HTMLElement {
     return [
       'headline',
       'race',
-      'threshold',
       'total',
-      'primary',
-      'secondary',
       'candidates',
     ];
   }
@@ -196,6 +193,15 @@ class ResultsTracker extends HTMLElement {
     shadow.appendChild(wrapper);
     // If we instead wanted to opt out of the shadow DOM, this would be:
     // this.appendChild(wrapper);
+
+    // Force loading of necessary webfonts
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.crossOrigin = "anonymous";
+    link.href =
+      "https://fonts.googleapis.com/css2?family=Domine:wght@700&family=Libre+Franklin:wght@500;600;700&display=swap";
+    document.head.appendChild(link);
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -207,18 +213,9 @@ class ResultsTracker extends HTMLElement {
         case 'race':
           this.raceElement.textContent = newValue;
           break;
-        case 'threshold':
-          this.thresholdElement.textContent = `${newValue} to win`;
-          break;
         case 'total':
           this.total = newValue;
           this.calculatePrimaryThreshold();
-          break;
-        case 'primary':
-          this.primary = newValue;
-          break;
-        case 'secondary':
-          this.secondary = newValue;
           break;
         case 'candidates':
           this.processCandidates();
