@@ -45,20 +45,18 @@ class ResultsTracker extends HTMLElement {
 
     const barsElement = document.createElement('div');
     barsElement.setAttribute('class', 'results-tracker__bars');
-    const controlLabelElement = document.createElement('div');
-    controlLabelElement.setAttribute('class', 'results-tracker__control-label');
-    // Make this controlled
-    controlLabelElement.textContent = "270";
-    const suffixElement = document.createElement('span');
-    suffixElement.setAttribute('class', 'results-tracker__control-label-suffix');
-    suffixElement.textContent = 'To win';
-    controlLabelElement.appendChild(suffixElement);
+    this.controlLabelElement = document.createElement('div');
+    this.controlLabelElement.setAttribute('class', 'results-tracker__control-label');
+    this.suffixElement = document.createElement('span');
+    this.suffixElement.setAttribute('class', 'results-tracker__control-label-suffix');
+    this.suffixElement.textContent = 'To win';
+    this.controlLabelElement.appendChild(this.suffixElement);
     const bar1Element = document.createElement('div');
     const bar2Element = document.createElement('div');
     bar1Element.setAttribute('class', 'results-tracker__bar bar1');
     bar2Element.setAttribute('class', 'results-tracker__bar bar2');
     barsElement.appendChild(bar1Element);
-    barsElement.appendChild(controlLabelElement);
+    barsElement.appendChild(this.controlLabelElement);
     barsElement.appendChild(bar2Element);
     wrapper.appendChild(barsElement);
 
@@ -216,6 +214,7 @@ class ResultsTracker extends HTMLElement {
           break;
         case 'total':
           this.total = newValue;
+          this.calculatePrimaryThreshold();
           break;
         case 'primary':
           this.primary = newValue;
@@ -228,6 +227,12 @@ class ResultsTracker extends HTMLElement {
           break;
       }
     }
+  }
+
+  calculatePrimaryThreshold() {
+    const threshold = this.total % 2 ? Math.round(this.total / 2) : this.total / 2 + 1;
+    this.controlLabelElement.textContent = threshold;
+    this.controlLabelElement.appendChild(this.suffixElement);
   }
 
   calculateSecondaryTotal() {
