@@ -51,13 +51,13 @@ class ResultsTracker extends HTMLElement {
     this.suffixElement.setAttribute('class', 'results-tracker__control-label-suffix');
     this.suffixElement.textContent = 'To win';
     this.controlLabelElement.appendChild(this.suffixElement);
-    const bar1Element = document.createElement('div');
-    const bar2Element = document.createElement('div');
-    bar1Element.setAttribute('class', 'results-tracker__bar bar1');
-    bar2Element.setAttribute('class', 'results-tracker__bar bar2');
-    barsElement.appendChild(bar1Element);
+    this.bar1Element = document.createElement('div');
+    this.bar2Element = document.createElement('div');
+    this.bar1Element.setAttribute('class', 'results-tracker__bar bar1');
+    this.bar2Element.setAttribute('class', 'results-tracker__bar bar2');
+    barsElement.appendChild(this.bar1Element);
     barsElement.appendChild(this.controlLabelElement);
-    barsElement.appendChild(bar2Element);
+    barsElement.appendChild(this.bar2Element);
     wrapper.appendChild(barsElement);
 
     // TODO - this should eventually be removed.
@@ -161,11 +161,9 @@ class ResultsTracker extends HTMLElement {
         background: #333;
       }
       .results-tracker__bar:first-of-type {
-        width: 40%;
         background-color: ${this.candidateElements[0].color};
       }
       .results-tracker__bar:last-of-type {
-        width: 40%;
         background-color: ${this.candidateElements[1].color};
       }
       .results-tracker__candidates {
@@ -243,8 +241,8 @@ class ResultsTracker extends HTMLElement {
     return secondaryTotal;
   }
 
-  getVotePercentage(candidate) {
-    return Math.round(candidate.secondary/this.secondaryTotal * 100);
+  getVotePercentage(votes, totalVotes) {
+    return Math.round(votes/totalVotes * 100);
   }
 
   processCandidates() {
@@ -252,11 +250,14 @@ class ResultsTracker extends HTMLElement {
     this.secondaryTotal = this.calculateSecondaryTotal();
     this.candidates.map((candidate, index) => {
       this.candidateElements[index].name.textContent = candidate.name;
-      this.candidateElements[index].votes.textContent = `${candidate.secondary} votes (${this.getVotePercentage(candidate)}%)`;
+      this.candidateElements[index].votes.textContent = `${candidate.secondary} votes (${this.getVotePercentage(candidate.secondary, this.secondaryTotal)}%)`;
       this.candidateElements[index].color = candidate.color;
+      this.candidateElements[index].primaryPercentage = this.getVotePercentage(candidate.primary, this.total);
     });
     this.label1Element.textContent = this.candidates[0].primary;
+    this.bar1Element.style.width = `${this.candidateElements[0].primaryPercentage}%`;
     this.label2Element.textContent = this.candidates[1].primary;
+    this.bar2Element.style.width = `${this.candidateElements[1].primaryPercentage}%`;
   }
 
 }
