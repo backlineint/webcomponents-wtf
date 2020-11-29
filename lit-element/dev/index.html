@@ -1,0 +1,31 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>&lt;results-tracker> Demo</title>
+    <script type="module" src="../results-tracker.js"></script>
+    <style>
+      p {
+        border: solid 1px blue;
+        padding: 8px;
+      }
+    </style>
+    <!-- Todo - Figure out correct way to load fonts within component -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Domine:wght@700&family=Libre+Franklin:wght@500;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <results-tracker
+      headline="Race Between Old Men Too Close To Call"
+      race="President"
+      total="538"
+      candidates='[
+          {"name": "Joseph R. Biden Jr.", "primary": 253, "secondary": 73879622, "color": "#1375b7"},
+          {"name": "Donald J. Trump", "primary": 214, "secondary": 69772905, "color": "#c93135"}
+        ]'
+    >
+      <p>This is child content</p>
+    </results-tracker>
+  </body>
+</html>
