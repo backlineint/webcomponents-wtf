@@ -14,10 +14,7 @@ slide-transition: true
 
 [.column]
 
-![Right fit](images/Picture1.png)
-
-d.o: brianperrytwitter: bricomedygithub: backlineint
-nintendo: wabrian
+![right](images/Picture1.png)
 
 ---
 
@@ -62,26 +59,98 @@ __A set of web platform APIs__, not tied to a specific framework
 # So why aren't they part of my workflow? :cold_sweat:
 
 ---
-# Warning: I'm not an expert
+# [fit] Warning: not an expert
+
+![](images/Picture1.png)
 
 ---
 
-# Experts in the community
+# I look to:
 
-Brian
-Others
+[.column]
+
+![fit](images/btopro.png)
+
+### @btopro
+
+[.column]
+
+![fit](images/salem.png)
+
+### [fit] @salem_cobalt
+
+[.column]
+
+![fit](images/cast.png)
+
+### [fit] @castastrophee
+
+[.column]
+
+![fit](images/bloom.png)
+
+### @illepic
 
 ---
 
-# An example - caniuse
+## Can I Use Web Components? [^1]
 
-^ Web components in the wild as well
+![fit inline](images/custom_elements.png)
+![fit inline](images/shadow_dom.png)
+
+[^1]: IE 11 can be supported using polyfills
 
 ---
 
-# I should build one.
+# [fit] Can Can I Use Use Web Components? [^2]
+
+![fit inline](images/caniuse.png)
+
+[^2]: Find many more examples at https://wild.open-wc.org/
+
+---
+
+# I should build an example web component.
+<br>
+But what could be a relevant example in November 2020?
 
 ^ What have I been lookinga at forever... Show storybook gif
+
+---
+
+![fit](images/globe_tracker.png)
+
+---
+
+![fit](images/cnn_tracker.png)
+
+---
+
+![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)
+
+---
+
+![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)
+
+---
+
+![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)
+
+---
+
+![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)
+
+---
+
+![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)![fit](images/cnn_tracker.png)
+
+---
+
+![fit](images/nytimes_tracker.png)
+
+---
+
+Storybook gif
 
 ---
 
@@ -140,16 +209,27 @@ Were web components even meant to be used without a framework?
 * Lit HTML
 
 ---
-
 # Stencil
 
 Quick look.
 
 ---
 
+# Vue with web components as a compile target
+
+^ examples that get to far from the spec. You still need to load vue
+
+---
+
 # Using web components with a framework
 
 Didn't do my homework?
+
+---
+
+Why aren't I using web components
+
+Why would I use web components.
 
 ---
 
