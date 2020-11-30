@@ -103,7 +103,7 @@ export class ResultsTracker extends LitElement {
       }
       .results-tracker__control-label-suffix {
         display: block;
-        font-size: 9.5;
+        font-size: 9.5px;
         text-transform: uppercase;
       }
       .results-tracker__control-label::after {
@@ -180,6 +180,10 @@ export class ResultsTracker extends LitElement {
 
   render() {
     return html`
+      <link
+        href="https://fonts.googleapis.com/css2?family=Domine:wght@700&family=Libre+Franklin:wght@500;600;700&display=swap"
+        rel="stylesheet"
+      />
       <div class="results-tracker">
         <div class="results-tracker__headline">
           <h2>${this.headline}</h2>

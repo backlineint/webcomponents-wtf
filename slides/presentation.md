@@ -1,30 +1,32 @@
 # **Web components** through the eyes of a newcomer
-### Design 4 Drupal - December 3, 2020
-##### Slide Link
+### Design 4 Drupal - December 2, 2020
+##### [https://bit.ly/d4dwc](https://bit.ly/d4dwc)
 
 ---
 
 ## Brian Perry
 * Lead Front End Dev at Bounteous
 * Rocking the Chicago ‘burbs
-* Lover of all things components... …and Nintendo
+* Lover of all things components... and Nintendo
 
-![Right](images/Picture1.png)
+d.o: brianperrytwitter: bricomedygithub: backlineint
+nintendo: wabrian
+
+![Right fit](images/Picture1.png)
 
 ---
 
-# Bounteous slide
+![](images/bounteous.jpg)
+
+^ Special shout outs to Andy Olsen for helping me crack the code on this,
+along with the NEDCamp BOF Session
 
 ---
 
-# Component based approaches
+# [fit] Component based approaches
+# [fit]have taken over the web
 
-Component based approaches have taken over the web
-
-* Atomic Design
-* Frameworks
-
-^ Speaker notes
+![right fit](images/atomic-design.png)
 
 ---
 
