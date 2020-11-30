@@ -1,18 +1,23 @@
-# **Web components** through the eyes of a newcomer
+slide-transition: true
+# **Web components** through the eyes
+# of a newcomer
 ### Design 4 Drupal - December 2, 2020
-##### [https://bit.ly/d4dwc](https://bit.ly/d4dwc)
+### [https://bit.ly/d4dwc](https://bit.ly/d4dwc)
 
 ---
 
+[.column]
 ## Brian Perry
 * Lead Front End Dev at Bounteous
 * Rocking the Chicago ‘burbs
 * Lover of all things components... and Nintendo
 
-d.o: brianperrytwitter: bricomedygithub: backlineint
-nintendo: wabrian
+[.column]
 
 ![Right fit](images/Picture1.png)
+
+d.o: brianperrytwitter: bricomedygithub: backlineint
+nintendo: wabrian
 
 ---
 
@@ -23,28 +28,41 @@ along with the NEDCamp BOF Session
 
 ---
 
-# [fit] Component based approaches
-# [fit]have taken over the web
+# [fit] Components
+# [fit] have taken over the web
 
 ![right fit](images/atomic-design.png)
 
 ---
 
-# What are web components
-
-How do they differ from 'components'
-
-Like React, right? Well not really.
+# We're here to talk about
+# [fit] Web
+# [fit] Components
 
 ---
 
-# I'm not an expert
+## [fit] Like React and Angular, right?
 
 ---
+[.build-lists: true]
 
-I want to learn why I'm not using this stuff
+# Web components
 
-This should be the component lover's dream
+__A set of web platform APIs__, not tied to a specific framework
+
+* Custom elements
+* Shadow DOM
+* HTML Templates
+
+---
+# I :heart: components.
+<br>
+# So I should :heart: Web Components.
+<br>
+# So why aren't they part of my workflow? :cold_sweat:
+
+---
+# Warning: I'm not an expert
 
 ---
 
@@ -57,46 +75,50 @@ Others
 
 # An example - caniuse
 
+^ Web components in the wild as well
+
 ---
 
-# Using a web component
+# I should build one.
+
+^ What have I been lookinga at forever... Show storybook gif
+
+---
+
+# How would you use it?
 
 * NPM Install the thing
 * A custom element
 * The Shadow DOM
   * Drop it into a MAGA style website
 
+^ A codepen that uses it.
+
 ---
 
-# Building a web component
+# Building The Election Tracker - Vanilla JS
 
 * election tracker example
 
+^ May need to experiment with <template> here to make code less awful.
+
 ---
 
-# Buildless steps
+# steps
 
 * Hello world - just render text to the screen
   * Limitation - Sure would like to use templating
-  * What happened to the template spec?
+  * What happened to the template spec? Homework.
 * Take in and render props
   * Limitation - attributes are only strings
 * Re-render based on changes
 
 ---
 
-# Pros and Cons to Going Buildless
+# Compare Vanilla to Framework
 
-Pros:
+Vanilla Pros:
 * More browser native
-
-Cons:
-* Build tools can actually be really nice.
-* Frameworks take care of tons of boilerplate.
-
----
-
-# Compare Buildless to Framework
 
 Examples of boilerplate that framework takes care of
 
@@ -108,9 +130,11 @@ Examples of boilerplate that framework takes care of
 
 # So. Many. Frameworks.
 
+Were web components even meant to be used without a framework?
+
 ---
 
-# Polymer
+# Rebuilding as Lit Element
 
 * Lit Element
 * Lit HTML
@@ -119,14 +143,26 @@ Examples of boilerplate that framework takes care of
 
 # Stencil
 
+Quick look.
+
 ---
 
 # Using web components with a framework
+
+Didn't do my homework?
 
 ---
 
 # My more educated views on web components
 
+I'd use a framework, but one that is pretty close to the spec.
+
 On an infinite timescale, web components will win.
 
 But how infinite? And will it be this version of Web Components?
+
+^ I know how lit element converts to standard web component stuff if Google goes out of business.
+
+---
+
+Thanks / Q&A
