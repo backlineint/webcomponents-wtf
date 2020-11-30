@@ -149,8 +149,9 @@ But what could be a relevant example in November 2020?
 ![fit](images/nytimes_tracker.png)
 
 ---
+## My own personal election tracker
 
-Storybook gif
+![inline autoplay loop](images/storybook.mp4)
 
 ---
 

@@ -20,6 +20,7 @@ function barTemplate(candidate, total) {
     style=${styleMap({
       width: getVotePercentage(candidate.primary, total),
       background: candidate.color,
+      transition: 'width 2s ease',
     })}
   ></div>`;
 }
