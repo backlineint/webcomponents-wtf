@@ -20,8 +20,9 @@ slide-transition: true
 
 ![](images/bounteous.jpg)
 
-^ Special shout outs to Andy Olsen for helping me crack the code on this,
-along with the NEDCamp BOF Session
+^ Special shout outs:
+* Andy Olsen for helping me crack the code on this talk
+* Also NEDCamp BOF Session
 
 ---
 
@@ -114,8 +115,6 @@ __A set of web platform APIs__, not tied to a specific framework
 <br>
 But what could be a relevant example in November 2020?
 
-^ What have I been lookinga at forever... Show storybook gif
-
 ---
 
 ![fit](images/globe_tracker.png)
@@ -123,6 +122,8 @@ But what could be a relevant example in November 2020?
 ---
 
 ![fit](images/cnn_tracker.png)
+
+^ Hitting reload... over... and over...
 
 ---
 
@@ -148,10 +149,14 @@ But what could be a relevant example in November 2020?
 
 ![fit](images/nytimes_tracker.png)
 
+^ I see the NY Times tracker as the definitive example - so let's make that.
+
 ---
 ## My own personal election tracker
 
 ![inline autoplay loop](images/storybook.mp4)
+
+^ Pretty close, right?
 
 ---
 
@@ -174,11 +179,12 @@ Note: If your component has external dependencies, you'll need to use a bundler 
 [^3]: [https://codepen.io/brianperry/pen/RwGPLBx](https://codepen.io/brianperry/pen/RwGPLBx)
 
 ^ Click over to pen
-Unpackage module imports
-Custom element tag results-tracker
-Pass in attributes - these are strings
-Candidates array is funky.
-<p>Is a slot - we'll cover that later (maybe?)
+* Note unpackage module imports
+* Custom element tag results-tracker
+* Pass in attributes - these are strings
+* Update attributes and watch component update
+* Candidates array is funky - better way to do this?
+* <p>Is a slot - we'll cover that later (maybe?)
 
 ---
 [.build-lists: true]
@@ -201,6 +207,8 @@ Candidates array is funky.
 
 [^4]: [https://codesandbox.io/s/election-results-tracker-wdxvx?file=/src/styles.css](https://codesandbox.io/s/election-results-tracker-wdxvx?file=/src/styles.css)
 
+^ Here are some examples of global styles interacting with scoped styles.
+
 ---
 [.build-lists: true]
 
@@ -211,28 +219,172 @@ TBH, I'm still confused :confused:
 * CSS Inheritance
 * CSS custom properties (css variables)
 * CSS ::part
-* Don't use the shadow DOM
+* Opt out of the shadow DOM
 
-^ CSS custom properties pierce the shadow DOM but are more appopriate for theming.
-Many options, but the exact combination is still unclear.
+^ Many options, but the exact combination is still unclear.
+* Inherrited styles work, but only inherrited styles.
+* CSS custom properties pierce the shadow DOM but are more appopriate for theming.
+* Part alows you to target part of the shadow DOM with CSS
+* Opting out of shadow DOM forces you to use global styling (but also give up some features.)
 
----
-# Building The Election Tracker - Vanilla JS
-
-* election tracker example
-
-^ May need to experiment with <template> here to make code less awful.
 
 ---
+# [fit] Building <election-tracker><br>Take 1: Vanilla JS
 
-# steps
+---
 
-* Hello world - just render text to the screen
-  * Limitation - Sure would like to use templating
-  * What happened to the template spec? Homework.
-* Take in and render props
-  * Limitation - attributes are only strings
-* Re-render based on changes
+Rendering a Headline
+index.html
+
+```html
+<html>
+  <head>
+    <title>Results Tracker Heading</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <results-tracker headline="Race Between Old Men Too Close To Call" />
+
+    <script type="module" src="src/results-tracker.js"></script>
+  </body>
+</html>
+```
+
+---
+
+results-tracker.js
+
+```javascript
+class ResultsTracker extends HTMLElement {
+  constructor() {
+    // Always call super first in constructor
+    super();
+
+    // Create a shadow root
+    const shadow = this.attachShadow({ mode: "open" }); // sets and returns 'this.shadowRoot'
+
+    // Create wrapping element
+    const wrapper = document.createElement("div");
+    wrapper.setAttribute("class", "results-tracker");
+
+    this.headlineElement = document.createElement("h2");
+    this.headlineElement.setAttribute("class", "results-tracker__headline");
+    this.headlineElement.textContent = this.getAttribute("headline");
+    wrapper.appendChild(this.headlineElement);
+
+    // Attach the results tracker to the shadow DOM.
+    shadow.appendChild(wrapper);
+  }
+}
+
+// Define the new element
+customElements.define("results-tracker", ResultsTracker);
+```
+
+^ Shadow root open means you can access it in the main page context
+* Really miss templating here.
+
+---
+
+Refactoring to use <template>
+
+```javascript
+class ResultsTracker extends HTMLElement {
+  constructor() {
+    super();
+    this.shadow = this.attachShadow({ mode: "open" });
+
+    // Templates are not referenced in the DOM, but can be referenced / cloned using js
+    const template = document.createElement("template");
+
+    template.innerHTML = `
+      <div class="results-tracker">
+        <div class="results-tracker__headline">
+          <h2>${this.getAttribute("headline")}</h2>
+        </div>
+      </div>
+    `;
+
+    // Attach the template to the Shadow DOM
+    this.shadow.appendChild(template.content);
+  }
+}
+
+customElements.define("results-tracker", ResultsTracker);
+```
+
+^ <template> is not referenced in the DOM, but can be referenced using js.
+* Could add it in HTML, but that kind of defeats the purpose of an encapsulated component.
+
+---
+
+Add scoped styling
+
+```javascript
+class ResultsTracker extends HTMLElement {
+  constructor() {
+    super();
+    /* Removed for brevity... */
+
+    // Create CSS to apply to the shadow dom
+    const style = document.createElement("style");
+
+    style.textContent = `
+      :host {
+        font-family: 'Libre Franklin', helvetica, arial, sans-serif;
+      }
+      h2 {
+        margin: .5rem 0;
+        font-family: 'Domine', serif;
+        font-weight: 700;
+        font-size: 36px;
+        text-align: center;
+      }
+    `;
+
+    // Attach the styles to the shadow dom
+    shadow.appendChild(style);
+
+    /* Removed for brevity... */
+  }
+}
+```
+
+---
+
+Observe attributes and re-render if changed
+
+```javascript
+class ResultsTracker extends HTMLElement {
+  // Specify observed attributes for attributeChangedCallback
+  static get observedAttributes() {
+    return ["headline"];
+  }
+
+  constructor() {
+    /* Removed for brevity */
+  }
+
+  // Custom element lifecycle callback function
+  attributeChangedCallback(name, oldValue, newValue) {
+    // Compare old to new to prevent unnecessary re-rendering
+    if (oldValue !== newValue && name === "headline") {
+      this.shadow.querySelector(
+        ".results-tracker__headline h2"
+      ).textContent = newValue;
+    }
+  }
+}
+
+// Define the new element
+customElements.define("results-tracker", ResultsTracker);
+
+```
+
+---
+
+Pen screenshot (and link) - A lot of work for a headline.
 
 ---
 
@@ -259,6 +411,9 @@ Were web components even meant to be used without a framework?
 
 * Lit Element
 * Lit HTML
+* Rebuild just headline
+* More impressive stuff from full example.
+* Talk about the benefits of encapsulation.
 
 ---
 # Stencil
@@ -281,7 +436,7 @@ Didn't do my homework?
 
 Managing Application state
 
-Look at setting props here.
+Look at setting props in js here.
 
 ---
 
@@ -292,6 +447,8 @@ Why would I use web components.
 ---
 
 # My more educated views on web components
+
+This was pretty hard to learn!
 
 I'd use a framework, but one that is pretty close to the spec.
 
