@@ -24,7 +24,8 @@
     "checksize": "rollup -c ; cat results-tracker.bundled.js | gzip -9 | wc -c ; rm results-tracker.bundled.js",
     "build": "echo \"This is not a TypeScript project, so no need to build.\"",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "dist": "cp results-tracker.js dist/results-tracker.js"
   },
   "keywords": [
     "web-components",

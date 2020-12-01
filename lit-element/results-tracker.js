@@ -189,7 +189,7 @@ export class ResultsTracker extends LitElement {
         rel="stylesheet"
       />
       <div class="results-tracker">
-        <div class="results-tracker__headline">
+        <div class="results-tracker__headline" part="headline">
           <h2>${this.headline}</h2>
         </div>
         <div class="results-tracker__sub-headline">
