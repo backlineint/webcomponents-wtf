@@ -155,17 +155,68 @@ But what could be a relevant example in November 2020?
 
 ---
 
-# How would you use it?
+# Using <election-tracker>
 
-* NPM Install the thing
-* A custom element
-* The Shadow DOM
-  * Drop it into a MAGA style website
+* Import script as JS module. Could be:
+  * local file
+  * NPM dependency (@backlineint/results-tracker)
+* Use your custom element in markup
+* Pass data in using attributes
 
-^ A codepen that uses it.
+Note: If your component has external dependencies, you'll need to use a bundler (Webpack, Rollup, Parcel, etc.)
 
 ---
 
+## Custom Elements [^3]
+
+![fit inline](images/codepen.png)
+
+[^3]: [https://codepen.io/brianperry/pen/RwGPLBx](https://codepen.io/brianperry/pen/RwGPLBx)
+
+^ Click over to pen
+Unpackage module imports
+Custom element tag results-tracker
+Pass in attributes - these are strings
+Candidates array is funky.
+<p>Is a slot - we'll cover that later (maybe?)
+
+---
+[.build-lists: true]
+# Shadow DOM
+
+* Encapsulated DOM Tree
+* Separate from main DOM
+* Elements won't collide
+* Scoped styles
+* Super spooky
+
+![](images/shadows.jpg)
+![original fit](images/shadow_dom_example.png)
+
+---
+
+# Scoped Styles [^4]
+
+![inline](images/scoped_styles.png)
+
+[^4]: [https://codesandbox.io/s/election-results-tracker-wdxvx?file=/src/styles.css](https://codesandbox.io/s/election-results-tracker-wdxvx?file=/src/styles.css)
+
+---
+[.build-lists: true]
+
+# Global Styling
+
+TBH, I'm still confused :confused:
+
+* CSS Inheritance
+* CSS custom properties (css variables)
+* CSS ::part
+* Don't use the shadow DOM
+
+^ CSS custom properties pierce the shadow DOM but are more appopriate for theming.
+Many options, but the exact combination is still unclear.
+
+---
 # Building The Election Tracker - Vanilla JS
 
 * election tracker example
@@ -225,6 +276,12 @@ Quick look.
 # Using web components with a framework
 
 Didn't do my homework?
+
+---
+
+Managing Application state
+
+Look at setting props here.
 
 ---
 
