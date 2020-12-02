@@ -384,11 +384,148 @@ customElements.define("results-tracker", ResultsTracker);
 
 ---
 
-Pen screenshot (and link) - A lot of work for a headline.
+# [fit] That was too much work for a headline...[^5]
+# [fit] Shouldn't this be easier?
+
+![](images/vanilla_headline.png)
+
+[^5]: [https://codesandbox.io/s/results-tracker-heading-vanilla-js-lunes](https://codesandbox.io/s/results-tracker-heading-vanilla-js-lunes)
 
 ---
 
-# Compare Vanilla to Framework
+# [fit] Wait for it...
+
+---
+# [fit] So.
+# [fit] Many.
+# [fit] Libraries.
+
+---
+
+* LitElement
+* Stencil
+* FastElement
+* Haunted
+* Hybrids
+* Many more...
+
+# Aren't we just back where we started?
+
+^ I've seen some debate about if they were even intended to be used without a library.
+* MS / Google investing here - that has to mean something.
+
+---
+Only one way to find out...
+<br>
+
+<br>
+# [fit] Building <election-tracker><br>Take 2: Lit-Element
+
+---
+
+Rendering a headline (LitElement version)
+index.html
+
+```html
+<html>
+  <head>
+    <title>Results Tracker Heading - Lit</title>
+    <meta charset="UTF-8" />
+  </head>
+
+  <body>
+    <results-tracker headline="Race Between Old Men Too Close To Call" />
+
+    <script type="module" src="src/results-tracker.js"></script>
+  </body>
+</html>
+```
+
+(same as vanilla js version)
+
+---
+
+results-tracker.js
+
+```javascript
+import { LitElement, html } from "lit-element";
+
+export class ResultsTracker extends LitElement {
+  static get properties() {
+    return {
+      headline: { type: String }
+    };
+  }
+
+  render() {
+    return html`
+      <div class="results-tracker">
+        <div class="results-tracker__headline">
+          <h2>${this.headline}</h2>
+        </div>
+      </div>
+    `;
+  }
+}
+
+window.customElements.define("results-tracker", ResultsTracker);
+```
+
+---
+
+# A lot with less
+
+* Renders custom element
+* Templating
+* Observes updates to attributes
+
+Just missing scoped styles.
+
+---
+
+Add scoped styling
+
+```javascript
+import { LitElement, html, css } from "lit-element";
+
+export class ResultsTracker extends LitElement {
+  static get styles() {
+    return css`
+      :host {
+        font-family: "Libre Franklin", helvetica, arial, sans-serif;
+      }
+      .results-tracker__headline h2 {
+        margin: 0.5rem 0;
+        font-family: "Domine", serif;
+        font-weight: 700;
+        font-size: 36px;
+        text-align: center;
+      }
+    `;
+  }
+
+  // Properties...
+
+  // Render method...
+}
+
+window.customElements.define("results-tracker", ResultsTracker);
+```
+
+---
+
+Converting attributes
+
+---
+
+That was a more appropriate amount of work for a <results-tracker>
+
+---
+# Stencil
+
+Quick look.
+
+---
 
 Vanilla Pros:
 * More browser native
@@ -401,28 +538,7 @@ Examples of boilerplate that framework takes care of
 
 ---
 
-# So. Many. Frameworks.
-
-Were web components even meant to be used without a framework?
-
----
-
-# Rebuilding as Lit Element
-
-* Lit Element
-* Lit HTML
-* Rebuild just headline
-* More impressive stuff from full example.
-* Talk about the benefits of encapsulation.
-
----
-# Stencil
-
-Quick look.
-
----
-
-# Vue with web components as a compile target
+# Vue with web components as a compile target (Defer this?)
 
 ^ examples that get to far from the spec. You still need to load vue
 
