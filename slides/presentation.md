@@ -8,9 +8,11 @@ slide-transition: true
 
 [.column]
 ## Brian Perry
-* Lead Front End Dev at Bounteous
+* Front End Architect at Bounteous
 * Rocking the Chicago ‘burbs
 * Lover of all things components... and Nintendo
+
+@bricomedy
 
 [.column]
 
@@ -219,6 +221,8 @@ TBH, I'm still confused :confused:
 * CSS Inheritance
 * CSS custom properties (css variables)
 * CSS ::part
+  * `<div part="headline">`
+  * `results-tracker::part(headline) { color: red; }`
 * Opt out of the shadow DOM
 
 ^ Many options, but the exact combination is still unclear.
@@ -479,7 +483,7 @@ window.customElements.define("results-tracker", ResultsTracker);
 * Templating
 * Observes updates to attributes
 
-Just missing scoped styles.
+Just need to add scoped styles.
 
 ---
 
@@ -516,64 +520,110 @@ window.customElements.define("results-tracker", ResultsTracker);
 
 Converting attributes
 
+```javascript
+// Vanilla JS - have to manually transform string attributes
+processCandidates() {
+    this.candidates = JSON.parse(this.getAttribute('candidates'));
+    // ...
+}
+
+// Define the type of your property, and LitElement will automatically
+// handle conversion for you.
+static get properties() {
+  return {
+    /**
+     * An array of objects containing data for each candidate
+     */
+    candidates: {type: Array},
+  };
+}
+```
+(And many other DX niceties)
+
 ---
 
-That was a more appropriate amount of work for a <results-tracker>
+Feels like a more appropriate amount of work for a headline... and especially the full results-tracker [^6]
+
+![fit inline](images/full_sandbox.png)
+
+[^6]: [https://codesandbox.io/s/election-results-tracker-thk26](https://codesandbox.io/s/election-results-tracker-thk26)
+
+^ That was a more appropriate amount of work for a <results-tracker>
 
 ---
 # Stencil
 
-Quick look.
+> Compiler that generates web components
+
+Provides extra capabilities on top of Web Components:
+
+* Prerendering
+* Objects-as-properties
+* Virtual DOM
+* JSX
+* Async Rendering
+
+![fit right](images/stencil.png)
 
 ---
 
-Vanilla Pros:
-* More browser native
+# Vue
 
-Examples of boilerplate that framework takes care of
+Supports web components as a build target.
 
-* Templating
-* Parsing data types
-* Observing properties
+But...
 
----
+It still requires the Vue library as a global dependency.
 
-# Vue with web components as a compile target (Defer this?)
+# :disappointed:
 
-^ examples that get to far from the spec. You still need to load vue
+![fit right](images/vue.png)
 
 ---
 
-# Using web components with a framework
-
-Didn't do my homework?
+# [fit] The dog ate my homework section
 
 ---
 
-Managing Application state
+## Using web components with a framework
 
-Look at setting props in js here.
+[custom-elements-everywhere.com](https://custom-elements-everywhere.com/) outlines support for many frameworks.
 
----
+Support is pretty solid across the board.
 
-Why aren't I using web components
+React has some notable limitations. :disappointed:
 
-Why would I use web components.
-
----
-
-# My more educated views on web components
-
-This was pretty hard to learn!
-
-I'd use a framework, but one that is pretty close to the spec.
-
-On an infinite timescale, web components will win.
-
-But how infinite? And will it be this version of Web Components?
-
-^ I know how lit element converts to standard web component stuff if Google goes out of business.
+![fit right](images/everywhere.png)
 
 ---
 
-Thanks / Q&A
+## Managing Application state
+
+* Didn't come accross any clear pattern or best pratice.
+* Could roll your own.
+* Could use any JS based state management library.
+* Would be nice if a default standard existsed (think React context)
+
+---
+[.build-lists: true]
+# My (slightly) more educated views on web components
+
+* This was pretty hard to learn!
+* I'd turn to this for special purpose components today.
+* Not yet comfortable enough for a full app/design system.
+* I would use a library, but one close to the vanilla API.
+
+---
+[.build-lists: true]
+# On an infinite timescale...
+
+* I think some version of this concept will win out.
+* But how infinite is that timescale?
+* And will it be this take on web components?
+
+---
+At least I've got this cool election tracker.
+# Thanks!
+
+brian.perry@bounteous.com
+@bricomedy
