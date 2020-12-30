@@ -1,3 +1,5 @@
+import "@backlineint/results-tracker";
+
 const ResultsTrackerProvider = ({
   headline,
   race,
