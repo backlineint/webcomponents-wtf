@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
+import "@backlineint/results-tracker";
 
-import ResultsTrackerProvider from "./ResultsTrackerProvider";
 import SwitchProvider from "./SwitchProvider";
 
 function App() {
@@ -64,14 +64,14 @@ function App() {
 
   return (
     <div className="App" style={{ margin: '1rem' }}>
-      <ResultsTrackerProvider
+      <results-tracker
         headline={meta.headline}
         race={meta.race}
         total={meta.total}
         candidates={JSON.stringify(candidates)}
       >
         <p>{meta.subheadline}</p>
-      </ResultsTrackerProvider>
+      </results-tracker>
       <div style={{ marginTop: '1rem' }}>
         <SwitchProvider checked handleToggle={togglePolitics}>Politics:</SwitchProvider>
       </div>
