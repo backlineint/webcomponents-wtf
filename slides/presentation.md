@@ -1,8 +1,11 @@
 slide-transition: true
 # **Web components** through the eyes
 # of a newcomer
-### Design 4 Drupal - December 2, 2020
-### [https://bit.ly/d4dwc](https://bit.ly/d4dwc)
+### Florida Drupal Camp - Feb 19, 2020
+### [https://bit.ly/wc-fldc](https://bit.ly/wc-fldc)
+
+---
+![](images/coc.png)
 
 ---
 
@@ -13,6 +16,7 @@ slide-transition: true
 * Lover of all things components... and Nintendo
 
 @bricomedy
+brianperry.dev
 
 [.column]
 
@@ -207,30 +211,27 @@ Note: If your component has external dependencies, you'll need to use a bundler 
 
 ![inline](images/scoped_styles.png)
 
-[^4]: [https://codesandbox.io/s/election-results-tracker-wdxvx?file=/src/styles.css](https://codesandbox.io/s/election-results-tracker-wdxvx?file=/src/styles.css)
+[^4]: [https://codesandbox.io/s/election-results-tracker-global-styling-options-w0i3e?file=/src/styles.css](https://codesandbox.io/s/election-results-tracker-global-styling-options-w0i3e?file=/src/styles.css)
 
 ^ Here are some examples of global styles interacting with scoped styles.
 
 ---
+
 [.build-lists: true]
 
-# Global Styling
+# Here's how I've been making sense of this...
 
-TBH, I'm still confused :confused:
+* **Only inherited properties pierce the shadow DOM**
+* Everything else requires the component to expose a styling hook:
+  * CSS custom properties (variables)
+  * Classes
+  * Shadow Parts
+  * Slots
 
-* CSS Inheritance
-* CSS custom properties (css variables)
-* CSS ::part
-  * `<div part="headline">`
-  * `results-tracker::part(headline) { color: red; }`
-* Opt out of the shadow DOM
+---
 
-^ Many options, but the exact combination is still unclear.
-* Inherrited styles work, but only inherrited styles.
-* CSS custom properties pierce the shadow DOM but are more appopriate for theming.
-* Part alows you to target part of the shadow DOM with CSS
-* Opting out of shadow DOM forces you to use global styling (but also give up some features.)
-
+# [fit] In case of emergency ~~break glass~~
+# [fit] opt out of the Shadow DOM :confused:
 
 ---
 # [fit] Building <election-tracker><br>Take 1: Vanilla JS
@@ -254,7 +255,6 @@ index.html
   </body>
 </html>
 ```
-
 ---
 
 results-tracker.js
@@ -580,11 +580,6 @@ It still requires the Vue library as a global dependency.
 ![fit right](images/vue.png)
 
 ---
-
-# [fit] The dog ate my homework section
-
----
-
 ## Using web components with a framework
 
 [custom-elements-everywhere.com](https://custom-elements-everywhere.com/) outlines support for many frameworks.
@@ -597,12 +592,21 @@ React has some notable limitations. :disappointed:
 
 ---
 
+# React + Custom Elements [^7]
+
+![inline](images/react_wc.png)
+
+[^7]: [https://codesandbox.io/s/web-components-with-react-tvnwd](https://codesandbox.io/s/web-components-with-react-tvnwd)
+
+---
+
 ## Managing Application state
 
-* Didn't come accross any clear pattern or best pratice.
+* Didn't come accross any clear pattern or best practice.
 * Could roll your own.
-* Could use any JS based state management library.
-* Would be nice if a default standard existsed (think React context)
+* Could use any JS based framework or state management library.
+* Would be nice if a default standard existed (think React context)
+* Maybe this is an unreasonable expectation...
 
 ---
 [.build-lists: true]
@@ -612,6 +616,12 @@ React has some notable limitations. :disappointed:
 * I'd turn to this for special purpose components today.
 * Not yet comfortable enough for a full app/design system.
 * I would use a library, but one close to the vanilla API.
+
+---
+
+A (possibly unusual?) use case
+
+![inline](images/use_case.png)
 
 ---
 [.build-lists: true]
@@ -627,3 +637,8 @@ At least I've got this cool election tracker.
 
 brian.perry@bounteous.com
 @bricomedy
+brianperry.dev
+
+---
+![](images/contrib.png)
+
