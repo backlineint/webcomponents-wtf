@@ -1,26 +1,28 @@
 slide-transition: true
 # **Web components** through the eyes
 # of a newcomer
-### Florida Drupal Camp - Feb 19, 2020
-### [https://bit.ly/wc-fldc](https://bit.ly/wc-fldc)
-
----
-![](images/coc.png)
+### Decoupled Days - July 15, 2021
+### [https://bit.ly/tbd](https://bit.ly/wc-fldc)
 
 ---
 
 [.column]
 ## Brian Perry
-* Front End Architect at Bounteous
+* Sr. Technology Consultant, Decoupled Architectures @ Pantheon
+* Initiative Coordinator: Decoupled Menus Initiative
 * Rocking the Chicago ‘burbs
-* Lover of all things components... and Nintendo
-
-@bricomedy
-brianperry.dev
 
 [.column]
 
-![right](images/Picture1.png)
+* Lover of all things components... and Nintendo
+
+d.o: brianperry
+@bricomedy
+brianperry.dev
+
+---
+
+![](images/pantheon.png)
 
 ---
 
@@ -63,7 +65,7 @@ __A set of web platform APIs__, not tied to a specific framework
 <br>
 # So I should :heart: Web Components.
 <br>
-# So why aren't they part of my workflow? :cold_sweat:
+# So why weren't they part of my workflow? :cold_sweat:
 
 ---
 # [fit] Warning: not an expert
@@ -76,9 +78,8 @@ __A set of web platform APIs__, not tied to a specific framework
 
 [.column]
 
-![fit](images/btopro.png)
-
-### @btopro
+![fit](images/cast.png)
+### [fit] @castastrophee
 
 [.column]
 
@@ -88,9 +89,9 @@ __A set of web platform APIs__, not tied to a specific framework
 
 [.column]
 
-![fit](images/cast.png)
+![fit](images/btopro.png)
 
-### [fit] @castastrophee
+### @btopro
 
 [.column]
 
@@ -204,34 +205,6 @@ Note: If your component has external dependencies, you'll need to use a bundler 
 
 ![](images/shadows.jpg)
 ![original fit](images/shadow_dom_example.png)
-
----
-
-# Scoped Styles [^4]
-
-![inline](images/scoped_styles.png)
-
-[^4]: [https://codesandbox.io/s/election-results-tracker-global-styling-options-w0i3e?file=/src/styles.css](https://codesandbox.io/s/election-results-tracker-global-styling-options-w0i3e?file=/src/styles.css)
-
-^ Here are some examples of global styles interacting with scoped styles.
-
----
-
-[.build-lists: true]
-
-# Here's how I've been making sense of this...
-
-* **Only inherited properties pierce the shadow DOM**
-* Everything else requires the component to expose a styling hook:
-  * CSS custom properties (variables)
-  * Classes
-  * Shadow Parts
-  * Slots
-
----
-
-# [fit] In case of emergency ~~break glass~~
-# [fit] opt out of the Shadow DOM :confused:
 
 ---
 # [fit] Building <election-tracker><br>Take 1: Vanilla JS
@@ -388,12 +361,12 @@ customElements.define("results-tracker", ResultsTracker);
 
 ---
 
-# [fit] That was too much work for a headline...[^5]
+# [fit] That was too much work for a headline...[^4]
 # [fit] Shouldn't this be easier?
 
 ![](images/vanilla_headline.png)
 
-[^5]: [https://codesandbox.io/s/results-tracker-heading-vanilla-js-lunes](https://codesandbox.io/s/results-tracker-heading-vanilla-js-lunes)
+[^4]: [https://codesandbox.io/s/results-tracker-heading-vanilla-js-lunes](https://codesandbox.io/s/results-tracker-heading-vanilla-js-lunes)
 
 ---
 
@@ -406,7 +379,7 @@ customElements.define("results-tracker", ResultsTracker);
 
 ---
 
-* LitElement
+* Lit
 * Stencil
 * FastElement
 * Haunted
@@ -423,11 +396,11 @@ Only one way to find out...
 <br>
 
 <br>
-# [fit] Building <election-tracker><br>Take 2: Lit-Element
+# [fit] Building <election-tracker><br>Take 2: Lit :fire:
 
 ---
 
-Rendering a headline (LitElement version)
+Rendering a headline (Lit version)
 index.html
 
 ```html
@@ -452,7 +425,7 @@ index.html
 results-tracker.js
 
 ```javascript
-import { LitElement, html } from "lit-element";
+import { LitElement, html } from "lit";
 
 export class ResultsTracker extends LitElement {
   static get properties() {
@@ -490,7 +463,7 @@ Just need to add scoped styles.
 Add scoped styling
 
 ```javascript
-import { LitElement, html, css } from "lit-element";
+import { LitElement, html, css } from "lit";
 
 export class ResultsTracker extends LitElement {
   static get styles() {
@@ -542,11 +515,11 @@ static get properties() {
 
 ---
 
-Feels like a more appropriate amount of work for a headline... and especially the full results-tracker [^6]
+Feels like a more appropriate amount of work for a headline... and especially the full results-tracker [^5]
 
 ![fit inline](images/full_sandbox.png)
 
-[^6]: [https://codesandbox.io/s/election-results-tracker-thk26](https://codesandbox.io/s/election-results-tracker-thk26)
+[^5]: [https://codesandbox.io/s/election-results-tracker-thk26](https://codesandbox.io/s/election-results-tracker-thk26)
 
 ^ That was a more appropriate amount of work for a <results-tracker>
 
@@ -578,6 +551,33 @@ It still requires the Vue library as a global dependency.
 # :disappointed:
 
 ![fit right](images/vue.png)
+
+---
+
+# [fit] Odds N' Ends
+
+---
+
+# Scoped Styles [^6]
+
+![inline](images/scoped_styles.png)
+
+[^6]: [https://codesandbox.io/s/election-results-tracker-global-styling-options-w0i3e?file=/src/styles.css](https://codesandbox.io/s/election-results-tracker-global-styling-options-w0i3e?file=/src/styles.css)
+
+^ Here are some examples of global styles interacting with scoped styles.
+
+---
+
+[.build-lists: true]
+
+# Here's how I've been making sense of this...
+
+* **Only inherited properties pierce the shadow DOM**
+* Everything else requires the component to expose a styling hook:
+  * CSS custom properties (variables)
+  * Classes
+  * Shadow Parts
+  * Slots
 
 ---
 ## Using web components with a framework
@@ -618,27 +618,26 @@ React has some notable limitations. :disappointed:
 * I would use a library, but one close to the vanilla API.
 
 ---
-
-A (possibly unusual?) use case
-
-![inline](images/use_case.png)
-
----
 [.build-lists: true]
 # On an infinite timescale...
 
 * I think some version of this concept will win out.
 * But how infinite is that timescale?
 * And will it be this take on web components?
+* Things are looking better every day...
 
 ---
-At least I've got this cool election tracker.
+
+Generic Drupal Web Components (GDWC)
+
+![inline](images/gdwc.png)
+
+---
 # Thanks!
 
-brian.perry@bounteous.com
+brian.perry@pantheon.io
+d.o: brianperry
 @bricomedy
 brianperry.dev
 
----
-![](images/contrib.png)
 
