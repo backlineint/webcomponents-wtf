@@ -1,20 +1,26 @@
 slide-transition: true
+
 # **Web components** through the eyes
+
 # of a newcomer
+
 ### Decoupled Days - July 15, 2021
+
 ### [https://bit.ly/tbd](https://bit.ly/wc-fldc)
 
 ---
 
 [.column]
+
 ## Brian Perry
-* Sr. Technology Consultant, Decoupled Architectures @ Pantheon
-* Initiative Coordinator: Decoupled Menus Initiative
-* Rocking the Chicago ‘burbs
+
+- Sr. Technology Consultant, Decoupled Architectures @ Pantheon
+- Initiative Coordinator: Decoupled Menus Initiative
+- Rocking the Chicago ‘burbs
 
 [.column]
 
-* Lover of all things components... and Nintendo
+- Lover of all things components... and Nintendo
 
 d.o: brianperry
 @bricomedy
@@ -28,13 +34,10 @@ brianperry.dev
 
 ![](images/bounteous.jpg)
 
-^ Special shout outs:
-* Andy Olsen for helping me crack the code on this talk
-* Also NEDCamp BOF Session
-
 ---
 
 # [fit] Components
+
 # [fit] have taken over the web
 
 ![right fit](images/atomic-design.png)
@@ -42,7 +45,9 @@ brianperry.dev
 ---
 
 # We're here to talk about
+
 # [fit] Web
+
 # [fit] Components
 
 ---
@@ -50,24 +55,28 @@ brianperry.dev
 ## [fit] Like React and Angular, right?
 
 ---
+
 [.build-lists: true]
 
 # Web components
 
-__A set of web platform APIs__, not tied to a specific framework
+**A set of web platform APIs**, not tied to a specific framework
 
-* Custom elements
-* Shadow DOM
-* HTML Templates
+- Custom elements
+- Shadow DOM
+- HTML Templates
 
 ---
+
 # I :heart: components.
+
 <br>
 # So I should :heart: Web Components.
 <br>
 # So why weren't they part of my workflow? :cold_sweat:
 
 ---
+
 # [fit] Warning: not an expert
 
 ![](images/Picture1.png)
@@ -79,6 +88,7 @@ __A set of web platform APIs__, not tied to a specific framework
 [.column]
 
 ![fit](images/cast.png)
+
 ### [fit] @castastrophee
 
 [.column]
@@ -119,6 +129,7 @@ __A set of web platform APIs__, not tied to a specific framework
 ---
 
 # I should build an example web component.
+
 <br>
 But what could be a relevant example in November 2020?
 
@@ -129,8 +140,6 @@ But what could be a relevant example in November 2020?
 ---
 
 ![fit](images/cnn_tracker.png)
-
-^ Hitting reload... over... and over...
 
 ---
 
@@ -156,24 +165,21 @@ But what could be a relevant example in November 2020?
 
 ![fit](images/nytimes_tracker.png)
 
-^ I see the NY Times tracker as the definitive example - so let's make that.
-
 ---
+
 ## My own personal election tracker
 
 ![inline autoplay loop](images/storybook.mp4)
-
-^ Pretty close, right?
 
 ---
 
 # Using <election-tracker>
 
-* Import script as JS module. Could be:
-  * local file
-  * NPM dependency (@backlineint/results-tracker)
-* Use your custom element in markup
-* Pass data in using attributes
+- Import script as JS module. Could be:
+  - local file
+  - NPM dependency (@backlineint/results-tracker)
+- Use your custom element in markup
+- Pass data in using attributes
 
 Note: If your component has external dependencies, you'll need to use a bundler (Webpack, Rollup, Parcel, etc.)
 
@@ -185,28 +191,23 @@ Note: If your component has external dependencies, you'll need to use a bundler 
 
 [^3]: [https://codepen.io/brianperry/pen/RwGPLBx](https://codepen.io/brianperry/pen/RwGPLBx)
 
-^ Click over to pen
-* Note unpackage module imports
-* Custom element tag results-tracker
-* Pass in attributes - these are strings
-* Update attributes and watch component update
-* Candidates array is funky - better way to do this?
-* <p>Is a slot - we'll cover that later (maybe?)
-
 ---
+
 [.build-lists: true]
+
 # Shadow DOM
 
-* Encapsulated DOM Tree
-* Separate from main DOM
-* Elements won't collide
-* Scoped styles
-* Super spooky
+- Encapsulated DOM Tree
+- Separate from main DOM
+- Elements won't collide
+- Scoped styles
+- Super spooky
 
 ![](images/shadows.jpg)
 ![original fit](images/shadow_dom_example.png)
 
 ---
+
 # [fit] Building <election-tracker><br>Take 1: Vanilla JS
 
 ---
@@ -228,6 +229,7 @@ index.html
   </body>
 </html>
 ```
+
 ---
 
 results-tracker.js
@@ -259,9 +261,6 @@ class ResultsTracker extends HTMLElement {
 customElements.define("results-tracker", ResultsTracker);
 ```
 
-^ Shadow root open means you can access it in the main page context
-* Really miss templating here.
-
 ---
 
 Refactoring to use <template>
@@ -290,9 +289,6 @@ class ResultsTracker extends HTMLElement {
 
 customElements.define("results-tracker", ResultsTracker);
 ```
-
-^ <template> is not referenced in the DOM, but can be referenced using js.
-* Could add it in HTML, but that kind of defeats the purpose of an encapsulated component.
 
 ---
 
@@ -347,21 +343,20 @@ class ResultsTracker extends HTMLElement {
   attributeChangedCallback(name, oldValue, newValue) {
     // Compare old to new to prevent unnecessary re-rendering
     if (oldValue !== newValue && name === "headline") {
-      this.shadow.querySelector(
-        ".results-tracker__headline h2"
-      ).textContent = newValue;
+      this.shadow.querySelector(".results-tracker__headline h2").textContent =
+        newValue;
     }
   }
 }
 
 // Define the new element
 customElements.define("results-tracker", ResultsTracker);
-
 ```
 
 ---
 
 # [fit] That was too much work for a headline...[^4]
+
 # [fit] Shouldn't this be easier?
 
 ![](images/vanilla_headline.png)
@@ -373,25 +368,26 @@ customElements.define("results-tracker", ResultsTracker);
 # [fit] Wait for it...
 
 ---
+
 # [fit] So.
+
 # [fit] Many.
+
 # [fit] Libraries.
 
 ---
 
-* Lit
-* Stencil
-* FastElement
-* Haunted
-* Hybrids
-* Many more...
+- Lit
+- Stencil
+- FastElement
+- Haunted
+- Hybrids
+- Many more...
 
 # Aren't we just back where we started?
 
-^ I've seen some debate about if they were even intended to be used without a library.
-* MS / Google investing here - that has to mean something.
-
 ---
+
 Only one way to find out...
 <br>
 
@@ -430,7 +426,7 @@ import { LitElement, html } from "lit";
 export class ResultsTracker extends LitElement {
   static get properties() {
     return {
-      headline: { type: String }
+      headline: { type: String },
     };
   }
 
@@ -452,9 +448,9 @@ window.customElements.define("results-tracker", ResultsTracker);
 
 # A lot with less
 
-* Renders custom element
-* Templating
-* Observes updates to attributes
+- Renders custom element
+- Templating
+- Observes updates to attributes
 
 Just need to add scoped styles.
 
@@ -511,6 +507,7 @@ static get properties() {
   };
 }
 ```
+
 (And many other DX niceties)
 
 ---
@@ -521,20 +518,19 @@ Feels like a more appropriate amount of work for a headline... and especially th
 
 [^5]: [https://codesandbox.io/s/election-results-tracker-thk26](https://codesandbox.io/s/election-results-tracker-thk26)
 
-^ That was a more appropriate amount of work for a <results-tracker>
-
 ---
+
 # Stencil
 
 > Compiler that generates web components
 
 Provides extra capabilities on top of Web Components:
 
-* Prerendering
-* Objects-as-properties
-* Virtual DOM
-* JSX
-* Async Rendering
+- Prerendering
+- Objects-as-properties
+- Virtual DOM
+- JSX
+- Async Rendering
 
 ![fit right](images/stencil.png)
 
@@ -564,22 +560,21 @@ It still requires the Vue library as a global dependency.
 
 [^6]: [https://codesandbox.io/s/election-results-tracker-global-styling-options-w0i3e?file=/src/styles.css](https://codesandbox.io/s/election-results-tracker-global-styling-options-w0i3e?file=/src/styles.css)
 
-^ Here are some examples of global styles interacting with scoped styles.
-
 ---
 
 [.build-lists: true]
 
 # Here's how I've been making sense of this...
 
-* **Only inherited properties pierce the shadow DOM**
-* Everything else requires the component to expose a styling hook:
-  * CSS custom properties (variables)
-  * Classes
-  * Shadow Parts
-  * Slots
+- **Only inherited properties pierce the shadow DOM**
+- Everything else requires the component to expose a styling hook:
+  - CSS custom properties (variables)
+  - Classes
+  - Shadow Parts
+  - Slots
 
 ---
+
 ## Using web components with a framework
 
 [custom-elements-everywhere.com](https://custom-elements-everywhere.com/) outlines support for many frameworks.
@@ -600,31 +595,39 @@ React has some notable limitations. :disappointed:
 
 ---
 
+# @lit-labs/react
+
+![inline](images/lit-react.png)
+
 ## Managing Application state
 
-* Didn't come accross any clear pattern or best practice.
-* Could roll your own.
-* Could use any JS based framework or state management library.
-* Would be nice if a default standard existed (think React context)
-* Maybe this is an unreasonable expectation...
+- Didn't come across any clear pattern or best practice.
+- Could roll your own.
+- Could use any JS based framework or state management library.
+- Would be nice if a default standard existed (think React context)
+- Maybe this is an unreasonable expectation...
 
 ---
+
 [.build-lists: true]
+
 # My (slightly) more educated views on web components
 
-* This was pretty hard to learn!
-* I'd turn to this for special purpose components today.
-* Not yet comfortable enough for a full app/design system.
-* I would use a library, but one close to the vanilla API.
+- This was pretty hard to learn!
+- I'd turn to this for special purpose components today.
+- Close to getting comfortable enough to use this for a full app/design system.
+- I would use a library, but one close to the vanilla API.
 
 ---
+
 [.build-lists: true]
+
 # On an infinite timescale...
 
-* I think some version of this concept will win out.
-* But how infinite is that timescale?
-* And will it be this take on web components?
-* Things are looking better every day...
+- I think some version of this concept will win out.
+- But how infinite is that timescale?
+- And will it be this take on web components?
+- Things are looking better every day...
 
 ---
 
@@ -633,11 +636,10 @@ Generic Drupal Web Components (GDWC)
 ![inline](images/gdwc.png)
 
 ---
+
 # Thanks!
 
 brian.perry@pantheon.io
 d.o: brianperry
 @bricomedy
 brianperry.dev
-
-
