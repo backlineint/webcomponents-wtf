@@ -6,7 +6,7 @@ slide-transition: true
 
 ### Decoupled Days - July 15, 2021
 
-### [https://bit.ly/wcdd](https://bit.ly/wcdd)
+### [https://bit.ly/wc-dd](https://bit.ly/wc-dd)
 
 ---
 
