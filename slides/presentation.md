@@ -6,7 +6,7 @@ slide-transition: true
 
 ### Decoupled Days - July 15, 2021
 
-### [https://bit.ly/tbd](https://bit.ly/wc-fldc)
+### [https://bit.ly/wcdd](https://bit.ly/wcdd)
 
 ---
 
@@ -595,9 +595,11 @@ React has some notable limitations. :disappointed:
 
 ---
 
-# @lit-labs/react
+# @lit-labs/react [^8]
 
 ![inline](images/lit-react.png)
+
+[^8]: [https://codesandbox.io/s/lit-react-358ez](https://codesandbox.io/s/lit-react-358ez)
 
 ## Managing Application state
 
